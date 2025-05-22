@@ -4,7 +4,7 @@ using System.Globalization;
 
 public static class ClientManager
 {
-    private const string FichierCSV = "Stockage/clients.csv";
+    private const string FichierCSV = "ressources/clients.csv";
 
     public static void SauvegarderClients(List<Client> clients, bool onlyIfNoFile = false)
     {
@@ -33,7 +33,6 @@ public static class ClientManager
             }));
         }
     }
-
     public static void SauvegarderClient(Client c)
     {
         if (!File.Exists(FichierCSV))
@@ -161,6 +160,40 @@ public static class ClientManager
             Console.WriteLine("Client non trouvé.");
         }
     }
+    
+    public static Client ChoisirClient()
+    {
+        var clients = ClientManager.ChargerClients();
+            
+        if (clients.Count == 0)
+        {
+            Console.WriteLine("Aucun client disponible.");
+            return null;
+        }
+
+        Console.WriteLine("===== LISTE DES CLIENTS =====");
+        for (var i = 0; i < clients.Count; i++)
+        {
+            var client = clients[i];
+            Console.WriteLine($"{i + 1}. {client.Prenom} {client.Nom} - {client.AdresseMail}");
+        }
+
+        int choix;
+        do
+        {
+            Console.Write("Entrez le numéro du client souhaité : ");
+            string saisie = Console.ReadLine();
+
+            if (int.TryParse(saisie, out choix) && choix >= 1 && choix <= clients.Count)
+            {
+                return clients[choix - 1];
+            }
+
+            Console.WriteLine("Numéro invalide. Veuillez réessayer.");
+        }
+        while (true);
+    }
+
 
     public static void ModifierClient(string email)
     {

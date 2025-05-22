@@ -1,0 +1,11 @@
+Immatriculation;TarifParKm;Type;Propriete1;Propriete2;Propriete3
+AB-123-CD;0.45;Voiture;5;;
+EF-456-GH;0.50;Voiture;4;;
+IJ-789-KL;0.60;Camionnette;Livraison urbaine;;
+MN-012-OP;0.65;Camionnette;Transport de matériel;;
+QR-345-ST;1.20;CamionBenne;12.5;2;True
+UV-678-WX;1.10;CamionBenne;10;1;False
+YZ-901-AB;1.30;CamionCiterne;15;gaz;
+CD-234-EF;1.25;CamionCiterne;18;liquide;
+GH-567-IJ;1.40;CamionFrigorifique;16;2;
+KL-890-MN;1.35;CamionFrigorifique;14;1;

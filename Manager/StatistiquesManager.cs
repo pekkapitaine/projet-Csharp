@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Projet_C__A3.Personne;
 
 namespace Projet_C__A3.Manager
 {
     public static class StatistiquesManager
     {
+        
         public static void AfficherNombreLivraisonsParChauffeur()
         {
             var commandes = CommandeManager.ChargerCommandes();
@@ -87,6 +89,25 @@ namespace Projet_C__A3.Manager
 
             double moyenne = groupes.Average();
             Console.WriteLine($"Moyenne des commandes par client : {moyenne:F2}");
+        }
+        
+        public static void AfficherCommandesClient(Client client)
+        {
+            var commandes = CommandeManager.ChargerCommandes();
+
+            var commandesClient = commandes
+                .Where(c => c.Client.AdresseMail == client.AdresseMail);
+
+            if (!commandesClient.Any())
+            {
+                Console.WriteLine("Aucune commande trouvée.");
+                return;
+            }
+            
+            foreach (var commande in commandesClient)
+            {
+                Console.WriteLine($"{commande.Client.Nom} {commande.Client.Prenom} - {commande.DateCommande:yyyy-MM-dd} - Prix : {commande.Prix:F2}e");
+            }
         }
     }
 

@@ -10,7 +10,7 @@ namespace Projet_C__A3
 {
     public static class CommandeManager
     {
-        private static readonly string cheminFichier = "Stockage/commandes.csv";
+        private static readonly string cheminFichier = "ressources/commandes.csv";
 
         public static void StockerCommande(Commande commande)
         {

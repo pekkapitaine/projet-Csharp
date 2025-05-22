@@ -42,8 +42,10 @@ class Program
 
         Console.WriteLine("Connexe? : " + graphe.EstConnexe());
         Console.WriteLine("Cycle? : " + graphe.ContientCycle());
-
-        // AfficherMenuPrincipal();
+        
+        Console.WriteLine("Appuyez sur une touche pour lancer le programme...");
+        Console.ReadKey(true);
+        AfficherMenuPrincipal();
     }
 
     public static void AfficherMenuPrincipal()
@@ -312,7 +314,7 @@ class Program
         Console.WriteLine("1. Nombre de livraison par chauffeur");
         Console.WriteLine("2. Nombre de commandes par client");
         Console.WriteLine("3. Prix moyen des commandes");
-        Console.WriteLine("4. Meilleurs clients");
+        Console.WriteLine("4. Prix moyen par clients");
         Console.WriteLine("0. Retour");
         Console.Write("Choix : ");
         var choix = Console.ReadKey(true);
@@ -341,6 +343,13 @@ class Program
             case ConsoleKey.D4:
             case ConsoleKey.NumPad4:
                 StatistiquesManager.AfficherMoyenneCommandesParClient();
+                Console.WriteLine("Appuyez sur une touche pour continuer...");
+                Console.ReadKey(false);
+                break;
+            case ConsoleKey.D5:
+            case ConsoleKey.NumPad5:
+                var client = ClientManager.ChoisirClient();
+                StatistiquesManager.AfficherCommandesClient(client);
                 Console.WriteLine("Appuyez sur une touche pour continuer...");
                 Console.ReadKey(false);
                 break;
