@@ -39,6 +39,8 @@ class Program
         var (cheminFloydWarshall, distanceFloydWarshall) = graphe.FindShortestPathFloydWarshall(nameof(Ville.Paris), nameof(Ville.Nice));
         Console.WriteLine("distance Paris - Nice, FloydWarshall: " + distanceFloydWarshall + ", CHEMIN: " +
                           string.Join(" => ", cheminFloydWarshall));
+        
+        graphe.VisualiserGraphe(cheminFloydWarshall);
 
         Console.WriteLine("Connexe? : " + graphe.EstConnexe());
         Console.WriteLine("Cycle? : " + graphe.ContientCycle());

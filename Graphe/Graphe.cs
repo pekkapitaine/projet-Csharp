@@ -334,7 +334,6 @@ namespace Projet_C__A3.Graphes
             visite.Add(noeud);
             resultat.Add(noeud.Nom);
 
-            // Affichage à chaque visite de noeud
             Console.WriteLine($"Visite : {noeud.Nom}");
 
             foreach (var lien in _adjacence[noeud])
@@ -433,12 +432,17 @@ namespace Projet_C__A3.Graphes
         }
 
 
-        public void VisualiserGraphe()
+        public void VisualiserGraphe(List<string> chemin = null)
         {
             const int largeur = 1000;
             const int hauteur = 1000;
             const int rayon = 25;
             const int marge = 100;
+            
+            if (chemin == null)
+            {
+                chemin = new List<string>();
+            }
 
             var bitmap = new SKBitmap(largeur, hauteur);
             var canvas = new SKCanvas(bitmap);
@@ -447,6 +451,13 @@ namespace Projet_C__A3.Graphes
             var paintNoeud = new SKPaint
             {
                 Color = SKColors.SteelBlue,
+                IsAntialias = true,
+                Style = SKPaintStyle.Fill
+            };
+            
+            var paintNoeudChemin = new SKPaint
+            {
+                Color = SKColors.Red,
                 IsAntialias = true,
                 Style = SKPaintStyle.Fill
             };
@@ -465,11 +476,17 @@ namespace Projet_C__A3.Graphes
                 IsAntialias = true,
                 StrokeWidth = 2
             };
+            
+            var paintLienChemin = new SKPaint
+            {
+                Color = SKColors.DarkRed,
+                IsAntialias = true,
+                StrokeWidth = 2
+            };
 
             var noeuds = _noeuds.Values.ToList();
             var positions = new Dictionary<Noeud, SKPoint>();
 
-            // Placement circulaire des noeuds
             double angleStep = 2 * Math.PI / noeuds.Count;
             float centerX = largeur / 2;
             float centerY = hauteur / 2;
@@ -482,26 +499,37 @@ namespace Projet_C__A3.Graphes
                 positions[noeuds[i]] = new SKPoint(x, y);
             }
 
-            // Tracer les liens
             foreach (var kvp in _adjacence)
             {
                 var pointA = positions[kvp.Key];
                 foreach (var lien in kvp.Value)
                 {
                     var pointB = positions[lien.Destination];
-                    canvas.DrawLine(pointA, pointB, paintLien);
+                    if (chemin.Contains(kvp.Key.Nom) && chemin.Contains(lien.Destination.Nom))
+                    {
+                        canvas.DrawLine(pointA, pointB, paintLienChemin);
+                    }
+                    else
+                    {
+                        canvas.DrawLine(pointA, pointB, paintLien);
+                    }
                 }
             }
 
-            // Tracer les noeuds
             foreach (var noeud in noeuds)
             {
                 var point = positions[noeud];
-                canvas.DrawCircle(point, rayon, paintNoeud);
-                canvas.DrawText(noeud.Nom, point.X, point.Y + 6, paintTexte); // +6 pour centrer verticalement
+                if (chemin.Contains(noeud.Nom))
+                {
+                    canvas.DrawCircle(point, rayon, paintNoeudChemin);
+                }
+                else
+                {
+                    canvas.DrawCircle(point, rayon, paintNoeud);
+                }
+                canvas.DrawText(noeud.Nom, point.X, point.Y + 6, paintTexte);
             }
 
-            // Sauvegarde de l'image
             using var image = SKImage.FromBitmap(bitmap);
             using var data = image.Encode(SKEncodedImageFormat.Png, 100);
             using var stream = File.OpenWrite(CHEMIN_IMG);
