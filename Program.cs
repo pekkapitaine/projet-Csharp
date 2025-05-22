@@ -2,15 +2,15 @@
 using Projet_C__A3.Graphes;
 using Projet_C__A3.Manager;
 using Projet_C__A3.Personne;
+
 class Program
 {
-
-    public static Graphe graphe = new Graphe("Stockage/distances.csv");
+    public static Graphe graphe = new Graphe("ressources/distances2.csv");
 
     static void Main()
     {
         // Sauvegarder les salariés dans le CSV
-        SalarieManager.SauvegarderSalaries(BaseData.Salaries(),true);
+        SalarieManager.SauvegarderSalaries(BaseData.Salaries(), true);
 
         // Sauvegarder les clients dans le CSV
         ClientManager.SauvegarderClients(BaseData.Clients(), true);
@@ -21,27 +21,32 @@ class Program
         graphe.AfficherMatriceAdjacence();
 
         graphe.AfficherListeAdjacence();
-        
+
         Console.WriteLine("=== PARCOURS ===");
 
-        graphe.ParcoursLargeur("Paris");
-
-        graphe.ParcoursProfondeur("Paris");
-
+        graphe.ParcoursLargeur(nameof(Ville.Paris));
+        graphe.ParcoursProfondeur(nameof(Ville.Paris));
         graphe.VisualiserGraphe();
 
-        Console.WriteLine("distance Paris - Annecy, Djikstra: " + graphe.FindShortestPathDjikstra("Paris", "Annecy").Item2 + ", CHEMIN: " + string.Join(" -> ", graphe.FindShortestPathDjikstra("Paris", "Annecy").Item1));
+        var (cheminDjikstra, distanceDjikstra) = graphe.FindShortestPathDjikstra(nameof(Ville.Paris), nameof(Ville.Nice));
+        Console.WriteLine("distance Paris - Nice, Djikstra: " + distanceDjikstra + ", CHEMIN: " +
+                          string.Join(" => ", cheminDjikstra));
 
-        Console.WriteLine("distance Paris - Annecy, BellmanFord: " + graphe.FindShortestPathBellmanFord("Paris", "Annecy").Item2 + ", CHEMIN: " + string.Join(" -> ", graphe.FindShortestPathBellmanFord("Paris", "Annecy").Item1));
+        var (cheminBellmanFord, distanceBellmanFord) = graphe.FindShortestPathBellmanFord(nameof(Ville.Paris), nameof(Ville.Nice));
+        Console.WriteLine("distance Paris - Nice, BellmanFord: " + distanceBellmanFord + ", CHEMIN: " +
+                          string.Join(" => ", cheminBellmanFord));
+        
+        var (cheminFloydWarshall, distanceFloydWarshall) = graphe.FindShortestPathFloydWarshall(nameof(Ville.Paris), nameof(Ville.Nice));
+        Console.WriteLine("distance Paris - Nice, FloydWarshall: " + distanceFloydWarshall + ", CHEMIN: " +
+                          string.Join(" => ", cheminFloydWarshall));
 
         Console.WriteLine("Connexe? : " + graphe.EstConnexe());
-
         Console.WriteLine("Cycle? : " + graphe.ContientCycle());
 
-        AfficherMenuPrincipal(); 
+        // AfficherMenuPrincipal();
     }
 
-        public static void AfficherMenuPrincipal()
+    public static void AfficherMenuPrincipal()
     {
         ConsoleManager.Hello();
 
@@ -116,13 +121,21 @@ class Program
                 case ConsoleKey.NumPad2:
                     Console.Write("Mail de l'employé à modifier: ");
                     string? employeAModifier = Console.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(employeAModifier)) { SalarieManager.ModifieSalarie(employeAModifier); }
+                    if (!string.IsNullOrWhiteSpace(employeAModifier))
+                    {
+                        SalarieManager.ModifieSalarie(employeAModifier);
+                    }
+
                     break;
                 case ConsoleKey.D3:
                 case ConsoleKey.NumPad3:
                     Console.Write("Mail de l'employé à supprimer: ");
                     string? employeASupprimer = Console.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(employeASupprimer)) { SalarieManager.SupprimerSalarie(employeASupprimer); }
+                    if (!string.IsNullOrWhiteSpace(employeASupprimer))
+                    {
+                        SalarieManager.SupprimerSalarie(employeASupprimer);
+                    }
+
                     break;
                 case ConsoleKey.D4:
                 case ConsoleKey.NumPad4:
@@ -221,6 +234,7 @@ class Program
                             clientsTries = clients.OrderBy(c => c.Nom).ThenBy(c => c.Prenom);
                             break;
                     }
+
                     Console.Clear();
                     Console.WriteLine("=== Liste des clients  : ===");
                     foreach (var c in clientsTries)
@@ -395,5 +409,4 @@ class Program
             }
         }
     }
-
 }

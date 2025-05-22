@@ -63,8 +63,8 @@ namespace Projet_C__A3.Graphes
             var listeNoeuds = _noeuds.Values.ToList();
 
             for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    _matriceAdjacence[i, j] = double.PositiveInfinity;
+            for (int j = 0; j < n; j++)
+                _matriceAdjacence[i, j] = double.PositiveInfinity;
 
             for (int i = 0; i < listeNoeuds.Count; i++)
             {
@@ -144,7 +144,8 @@ namespace Projet_C__A3.Graphes
             return (chemin, distances[arrivee]);
         }
 
-        public (List<string> chemin, double distance) FindShortestPathBellmanFord(string villeDepart, string villeArrivee)
+        public (List<string> chemin, double distance) FindShortestPathBellmanFord(string villeDepart,
+            string villeArrivee)
         {
             if (!_noeuds.ContainsKey(villeDepart) || !_noeuds.ContainsKey(villeArrivee))
                 return (new List<string>(), double.PositiveInfinity);
@@ -207,6 +208,72 @@ namespace Projet_C__A3.Graphes
         }
 
 
+        public (List<string> chemin, double distance) FindShortestPathFloydWarshall(string villeDepart,
+            string villeArrivee)
+        {
+            var listeVilles = _noeuds.Keys.ToList();
+            
+            var start = listeVilles.IndexOf(villeDepart);
+            var end = listeVilles.IndexOf(villeArrivee);
+            if (start < 0 || end < 0)
+                throw new ArgumentException("Ville de départ ou d'arrivée inconnue");
+
+            var n = _matriceAdjacence.GetLength(0);
+            double[,] dist = new double[n, n];
+            int[,] next = new int[n, n];
+            for (var i = 0; i < n; i++)
+            {
+                for (var j = 0; j < n; j++)
+                {
+                    if (i == j)
+                    {
+                        dist[i, j] = 0;
+                        next[i, j] = i;
+                    }
+                    else if (_matriceAdjacence[i, j] != 0)
+                    {
+                        dist[i, j] = _matriceAdjacence[i, j];
+                        next[i, j] = j;
+                    }
+                    else
+                    {
+                        dist[i, j] = double.PositiveInfinity;
+                        next[i, j] = -1;
+                    }
+                }
+            }
+
+            for (var k = 0; k < n; k++)
+            {
+                for (var i = 0; i < n; i++)
+                {
+                    for (var j = 0; j < n; j++)
+                    {
+                        if (dist[i, k] + dist[k, j] < dist[i, j])
+                        {
+                            dist[i, j] = dist[i, k] + dist[k, j];
+                            next[i, j] = next[i, k];
+                        }
+                    }
+                }
+            }
+
+            List<string> chemin = new List<string>();
+            if (next[start, end] == -1)
+            {
+                return (chemin, double.PositiveInfinity);
+            }
+
+            int u = start;
+            chemin.Add(villeDepart);
+            while (u != end)
+            {
+                u = next[u, end];
+                chemin.Add(listeVilles[u]);
+            }
+
+            return (chemin, dist[start, end]);
+        }
 
 
         public List<string> ParcoursLargeur(string nomDepart)
@@ -299,6 +366,7 @@ namespace Projet_C__A3.Graphes
                         return true;
                 }
             }
+
             return false;
         }
 
@@ -319,25 +387,32 @@ namespace Projet_C__A3.Graphes
                     return true;
                 }
             }
+
             return false;
         }
 
         public void AfficherMatriceAdjacence()
         {
             var noms = _noeuds.Keys.ToList();
-            Console.Write("\t");
+            int largeurColonne = noms.Max(n => n.Length);
+
+            Console.Write("".PadRight(largeurColonne));
+
             foreach (var nom in noms)
-                Console.Write(nom + "\t");
+                Console.Write(nom.PadRight(largeurColonne));
+
             Console.WriteLine();
 
-            for (int i = 0; i < noms.Count; i++)
+            for (var i = 0; i < noms.Count; i++)
             {
-                Console.Write(noms[i] + "\t");
-                for (int j = 0; j < noms.Count; j++)
+                Console.Write(noms[i].PadRight(largeurColonne));
+                for (var j = 0; j < noms.Count; j++)
                 {
                     var val = _matriceAdjacence[i, j];
-                    Console.Write((double.IsInfinity(val) ? "0" : val.ToString("F1")) + "\t");
+                    var texte = double.IsInfinity(val) ? "0" : val.ToString("F1");
+                    Console.Write(texte.PadRight(largeurColonne));
                 }
+
                 Console.WriteLine();
             }
         }
@@ -352,13 +427,13 @@ namespace Projet_C__A3.Graphes
                 {
                     Console.Write($"-> {lien.Destination} ({lien.Distance} km) ");
                 }
+
                 Console.WriteLine();
             }
         }
 
-        
 
-    public void VisualiserGraphe()
+        public void VisualiserGraphe()
         {
             const int largeur = 1000;
             const int hauteur = 1000;
@@ -432,10 +507,10 @@ namespace Projet_C__A3.Graphes
             using var stream = File.OpenWrite(CHEMIN_IMG);
             data.SaveTo(stream);
         }
+
         public List<string> ObtenirListeVilles()
         {
             return _noeuds.Keys.ToList();
         }
-
     }
 }

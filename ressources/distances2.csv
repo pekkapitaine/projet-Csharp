@@ -1,0 +1,23 @@
+Ville 1;Ville 2;Distance (Km)
+Paris;Lyon;393
+Lyon;Paris;393
+Paris;Marseille;660
+Marseille;Paris;660
+Lyon;Marseille;314
+Marseille;Lyon;314
+Lyon;Nice;470
+Nice;Lyon;470
+Marseille;Nice;200
+Nice;Marseille;200
+Nice;Toulouse;470
+Toulouse;Nice;470
+Toulouse;Bordeaux;245
+Bordeaux;Toulouse;245
+Bordeaux;Nantes;335
+Nantes;Bordeaux;335
+Nantes;Rennes;107
+Rennes;Nantes;107
+Rennes;Lille;600
+Lille;Rennes;600
+Lille;Paris;225
+Paris;Lille;225
