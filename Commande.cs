@@ -34,7 +34,7 @@ namespace Projet_C__A3
 
         public override string ToString()
         {
-            return $"{Client.Prenom} {Client.Nom} | {VilleDepart} -> {VilleArrivee} | {Kilometrage} km | Véhicule: {Vehicule.Immatriculation} | Chauffeur: {Chauffeur.AdresseMail} | Date: {DateCommande:yyyy-MM-dd} | Prix: {Prix}e | Payé: {(PaiementEffectue ? "Oui" : "Non")}";
+            return $"{Client.Prenom} {Client.Nom} | {VilleDepart} -> {VilleArrivee} | {Kilometrage} km | Véhicule: {Vehicule.Immatriculation} | Chauffeur: {Chauffeur.AdressePostale} | Date: {DateCommande:yyyy-MM-dd} | Prix: {Prix}e | Payé: {(PaiementEffectue ? "Oui" : "Non")}";
         }
 
 

@@ -10,7 +10,7 @@ namespace Projet_C__A3
 {
     public static class CommandeManager
     {
-        private static readonly string cheminFichier = "ressources/commandes.csv";
+        private static readonly string cheminFichier = "Stockage/commandes.csv";
 
         public static void StockerCommande(Commande commande)
         {
@@ -184,7 +184,7 @@ namespace Projet_C__A3
 
             // ==== Sélection du chauffeur ====
             var chauffeursDisponibles = SalarieManager.ObtenirChauffeursDisponibles(date);
-            Console.WriteLine($"=== 5 chauffeurs disponibles le {date:dd/MM/yyyy} ===");
+            Console.WriteLine($"=== {chauffeursDisponibles.Count} chauffeurs disponibles le {date:dd/MM/yyyy} ===");
             foreach (var c in chauffeursDisponibles.Take(5))
             {
                 Console.WriteLine(c);
