@@ -4,7 +4,7 @@ using System.Globalization;
 
 public static class ClientManager
 {
-    private const string FichierCSV = "ressources/clients.csv";
+    private const string FichierCSV = "Stockage/clients.csv";
 
     public static void SauvegarderClients(List<Client> clients, bool onlyIfNoFile = false)
     {

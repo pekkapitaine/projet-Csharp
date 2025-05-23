@@ -1,0 +1,6 @@
+Nom;Prenom;DateNaissance;AdressePostale;AdresseMail;Telephone
+Durand;Alice;12/04/1985 00:00:00;12 rue de Paris, Lyon;alice.durand@mail.com;0601020304
+Martin;Bob;22/01/1990 00:00:00;45 avenue Victor Hugo, Marseille;bob.martin@mail.com;0605060708
+Lemoine;Claire;03/07/1978 00:00:00;78 boulevard Haussmann, Paris;claire.lemoine@mail.com;0611223344
+Nguyen;David;15/11/1995 00:00:00;9 chemin des Lilas, Toulouse;david.nguyen@mail.com;0655443322
+Rossi;Emma;09/09/1988 00:00:00;23 rue des Fleurs, Nice;emma.rossi@mail.com;0677889900
