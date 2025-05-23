@@ -1,0 +1,17 @@
+Ville 1;Ville 2;Distance (Km)
+Paris;Orleans;130
+Orleans;Clermont-Ferrand;260
+Clermont-Ferrand;Marseille;420
+Paris;Dijon;315
+Dijon;Lyon;195
+Lyon;Marseille;315
+Paris;Lyon;465
+Paris;Nancy;340
+Nancy;Besancon;170
+Besancon;Lyon;230
+Paris;Clermont-Ferrand;420
+Orleans;Lyon;400
+Dijon;Avignon;290
+Avignon;Marseille;100
+Clermont-Ferrand;Avignon;310
+Nancy;Avignon;550

@@ -81,6 +81,7 @@ namespace Projet_C__A3.Graphes
         {
             if (!_noeuds.ContainsKey(villeDepart) || !_noeuds.ContainsKey(villeArrivee))
                 return (new List<string>(), double.PositiveInfinity);
+            
 
             var depart = _noeuds[villeDepart];
             var arrivee = _noeuds[villeArrivee];
@@ -215,8 +216,8 @@ namespace Projet_C__A3.Graphes
             
             var start = listeVilles.IndexOf(villeDepart);
             var end = listeVilles.IndexOf(villeArrivee);
-            if (start < 0 || end < 0)
-                throw new ArgumentException("Ville de départ ou d'arrivée inconnue");
+            if (!_noeuds.ContainsKey(villeDepart) || !_noeuds.ContainsKey(villeArrivee))
+                return (new List<string>(), double.PositiveInfinity);
 
             var n = _matriceAdjacence.GetLength(0);
             double[,] dist = new double[n, n];
@@ -434,7 +435,7 @@ namespace Projet_C__A3.Graphes
         }
 
 
-        public void VisualiserGraphe(List<string> chemin = null)
+        public void VisualiserGraphe(string nameFile, List<string> chemin = null)
         {
             const int largeur = 1000;
             const int hauteur = 1000;
@@ -534,7 +535,7 @@ namespace Projet_C__A3.Graphes
 
             using var image = SKImage.FromBitmap(bitmap);
             using var data = image.Encode(SKEncodedImageFormat.Png, 100);
-            using var stream = File.OpenWrite(CHEMIN_IMG);
+            using var stream = File.OpenWrite($"{nameFile}.png");
             data.SaveTo(stream);
         }
 

@@ -5,7 +5,7 @@ using Projet_C__A3.Personne;
 
 class Program
 {
-    public static Graphe graphe = new Graphe("ressources/distances2.csv");
+    public static Graphe graphe = new Graphe("ressources/distances3.csv");
 
     static void Main()
     {
@@ -26,21 +26,24 @@ class Program
 
         graphe.ParcoursLargeur(Ville.Paris);
         graphe.ParcoursProfondeur(Ville.Paris);
-        graphe.VisualiserGraphe();
+        graphe.VisualiserGraphe("graphe_base");
 
-        var (cheminDjikstra, distanceDjikstra) = graphe.FindShortestPathDjikstra(nameof(Ville.Paris), nameof(Ville.Nice));
-        Console.WriteLine("distance Paris - Nice, Djikstra: " + distanceDjikstra + ", CHEMIN: " +
+        var depart = Ville.Paris;
+        var arrive = Ville.Marseille;
+
+        var (cheminDjikstra, distanceDjikstra) = graphe.FindShortestPathDjikstra(depart.ToString(), arrive.ToString());
+        Console.WriteLine($"distance {depart} - {arrive}, Djikstra: " + distanceDjikstra + ", CHEMIN: " +
                           string.Join(" => ", cheminDjikstra));
 
-        var (cheminBellmanFord, distanceBellmanFord) = graphe.FindShortestPathBellmanFord(nameof(Ville.Paris), nameof(Ville.Nice));
-        Console.WriteLine("distance Paris - Nice, BellmanFord: " + distanceBellmanFord + ", CHEMIN: " +
+        var (cheminBellmanFord, distanceBellmanFord) = graphe.FindShortestPathBellmanFord(depart.ToString(), arrive.ToString());
+        Console.WriteLine($"distance {depart} - {arrive}, BellmanFord: " + distanceBellmanFord + ", CHEMIN: " +
                           string.Join(" => ", cheminBellmanFord));
         
-        var (cheminFloydWarshall, distanceFloydWarshall) = graphe.FindShortestPathFloydWarshall(nameof(Ville.Paris), nameof(Ville.Nice));
-        Console.WriteLine("distance Paris - Nice, FloydWarshall: " + distanceFloydWarshall + ", CHEMIN: " +
+        var (cheminFloydWarshall, distanceFloydWarshall) = graphe.FindShortestPathFloydWarshall(depart.ToString(), arrive.ToString());
+        Console.WriteLine($"distance {depart} - {arrive}, FloydWarshall: " + distanceFloydWarshall + ", CHEMIN: " +
                           string.Join(" => ", cheminFloydWarshall));
         
-        graphe.VisualiserGraphe(cheminFloydWarshall);
+        graphe.VisualiserGraphe("graphe_FloydWarshall",cheminFloydWarshall);
 
         Console.WriteLine("Connexe? : " + graphe.EstConnexe());
         Console.WriteLine("Cycle? : " + graphe.ContientCycle());
