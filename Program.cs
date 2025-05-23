@@ -24,8 +24,8 @@ class Program
 
         Console.WriteLine("=== PARCOURS ===");
 
-        graphe.ParcoursLargeur(nameof(Ville.Paris));
-        graphe.ParcoursProfondeur(nameof(Ville.Paris));
+        graphe.ParcoursLargeur(Ville.Paris);
+        graphe.ParcoursProfondeur(Ville.Paris);
         graphe.VisualiserGraphe();
 
         var (cheminDjikstra, distanceDjikstra) = graphe.FindShortestPathDjikstra(nameof(Ville.Paris), nameof(Ville.Nice));

@@ -276,16 +276,17 @@ namespace Projet_C__A3.Graphes
         }
 
 
-        public List<string> ParcoursLargeur(string nomDepart)
+        public List<string> ParcoursLargeur(Ville departName)
         {
             var visite = new HashSet<Noeud>();
             var resultat = new List<string>();
             var file = new Queue<Noeud>();
+            string departString = nameof(departName);
 
-            if (!_noeuds.ContainsKey(nomDepart))
+            if (!_noeuds.ContainsKey(departString))
                 return resultat;
 
-            var depart = _noeuds[nomDepart];
+            var depart = _noeuds[departString];
             visite.Add(depart);
             file.Enqueue(depart);
 
@@ -312,17 +313,18 @@ namespace Projet_C__A3.Graphes
             return resultat;
         }
 
-        public List<string> ParcoursProfondeur(string nomDepart)
+        public List<string> ParcoursProfondeur(Ville departName)
         {
             var visite = new HashSet<Noeud>();
             var resultat = new List<string>();
+            string departString = nameof(departName);
 
-            if (!_noeuds.ContainsKey(nomDepart))
+            if (!_noeuds.ContainsKey(departString))
                 return resultat;
 
             Console.WriteLine("Parcours en profondeur :");
 
-            DFS(_noeuds[nomDepart], visite, resultat);
+            DFS(_noeuds[departString], visite, resultat);
             return resultat;
         }
 
