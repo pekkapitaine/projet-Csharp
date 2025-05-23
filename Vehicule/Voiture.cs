@@ -1,4 +1,6 @@
-﻿public class Voiture : Vehicule
+﻿using Projet_C__A3.Vehicule;
+
+public class Voiture : Vehicule
 {
     public int NombrePassagers { get; set; }
 
@@ -11,5 +13,10 @@
     public override string ToString()
     {
         return $"[Voiture] {base.ToString()}, Passagers: {NombrePassagers}";
+    }
+
+    public override VehiculeType GetTypeVehicule()
+    {
+        return VehiculeType.Voiture;
     }
 }

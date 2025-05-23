@@ -1,4 +1,6 @@
-﻿public class CamionFrigorifique : Camion
+﻿using Projet_C__A3.Vehicule;
+
+public class CamionFrigorifique : Camion
 {
     public int GroupesElectrogenes { get; set; }
 
@@ -11,5 +13,10 @@
     public override string ToString()
     {
         return $"[CamionFrigorifique] {base.ToString()}, Groupes électrogènes: {GroupesElectrogenes}";
+    }
+
+    public override VehiculeType GetTypeVehicule()
+    {
+        return VehiculeType.CamionFrigorifique;
     }
 }

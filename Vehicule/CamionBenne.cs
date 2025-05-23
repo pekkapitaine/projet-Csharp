@@ -1,4 +1,6 @@
-﻿public class CamionBenne : Camion
+﻿using Projet_C__A3.Vehicule;
+
+public class CamionBenne : Camion
 {
     public int NombreBennes { get; set; }
     public bool GrueAuxiliaire { get; set; }
@@ -13,5 +15,10 @@
     public override string ToString()
     {
         return $"[CamionBenne] {base.ToString()}, Bennes: {NombreBennes}, Grue: {(GrueAuxiliaire ? "Oui" : "Non")}";
+    }
+
+    public override VehiculeType GetTypeVehicule()
+    {
+        return VehiculeType.CamionBenne;
     }
 }

@@ -1,4 +1,6 @@
-﻿public class Camionnette : Vehicule
+﻿using Projet_C__A3.Vehicule;
+
+public class Camionnette : Vehicule
 {
     public string Usage { get; set; }
 
@@ -11,5 +13,10 @@
     public override string ToString()
     {
         return $"[Camionnette] {base.ToString()}, Usage: {Usage}";
+    }
+
+    public override VehiculeType GetTypeVehicule()
+    {
+        return VehiculeType.Camionnette;
     }
 }

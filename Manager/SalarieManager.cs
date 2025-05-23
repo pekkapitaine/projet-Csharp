@@ -151,7 +151,7 @@ public static class SalarieManager
             }
         }
 
-        return salaries.Where(s => s.Superieur == null).ToList();
+        return salaries.ToList();
     }
 
     public static void AjouterSalarie(Salarie nouveau)
@@ -203,6 +203,7 @@ public static class SalarieManager
 
     public static List<Salarie> ObtenirChauffeursDisponibles(DateTime date) 
     {
+        var ch = ChargerSalaries();
         var chauffeurs = ChargerSalaries()
             .Where(s => s.Poste == Role.Chauffeur)
             .ToList();

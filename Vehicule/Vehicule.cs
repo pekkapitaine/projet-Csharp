@@ -1,4 +1,6 @@
-﻿public abstract class Vehicule
+﻿using Projet_C__A3.Vehicule;
+
+public abstract class Vehicule : IVehicule
 {
     public string Immatriculation { get; set; }
     public decimal TarifParKm { get; set; }
@@ -22,4 +24,6 @@
         }
         return false;
     }
+
+    public abstract VehiculeType GetTypeVehicule();
 }
